@@ -1,0 +1,65 @@
+@CHARSET "ISO-8859-1";
+
+div#loginForm {
+	width: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 200px;
+	height: auto;
+}
+
+
+table {
+	background-color: rgba(198, 220, 224, 1);
+	width: 500px;
+	height: 150px;
+}
+
+tr,td {
+	padding: 10px;
+}
+
+label {
+	clear: both;
+	float: left;
+	padding-right: 30px;
+	width: 100px;
+}
+
+input {
+	float: left;
+}
+
+#bottom {
+	background-color: #90C8D2;
+	border-top: 1px solid;
+	width: 100%;
+}
+
+#bottom input {
+	float: right;
+}
+
+#bottom td {
+	border-top: 1px solid black;
+}
+
+#top {
+	background-color: #90C8D2;
+	border-bottom: 1px solid black;
+	text-align: left;
+	font-size: large;
+	font-weight: bold;
+}
+
+#necessary {
+	color: red;
+	float: left;
+}
+
+#error {
+	text-align: center;
+	color: red;
+	font-style: italic;
+	font-weight: bold;
+}
