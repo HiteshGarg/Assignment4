@@ -3,6 +3,7 @@
  */
 package com.nagarro.training.assignment4.POJO;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,17 @@ public class UserDetails {
 	private String username;
 	
 	private String password;
+	
+	@Column(columnDefinition="bigint default 0")
+	private Long totalSize;
+
+	public Long getTotalSize() {
+		return totalSize;
+	}
+
+	public void setTotalSize(Long totalSize) {
+		this.totalSize = totalSize;
+	}
 
 	public UserDetails() {
 	}

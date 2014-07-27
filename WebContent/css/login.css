@@ -8,14 +8,13 @@ div#loginForm {
 	height: auto;
 }
 
-
 table {
 	background-color: rgba(198, 220, 224, 1);
 	width: 500px;
 	height: 150px;
 }
 
-tr,td {
+tr, td {
 	padding: 10px;
 }
 

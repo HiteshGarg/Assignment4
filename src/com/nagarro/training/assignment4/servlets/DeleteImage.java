@@ -1,7 +1,7 @@
 package com.nagarro.training.assignment4.servlets;
 
-import java.awt.font.ImageGraphicAttribute;
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.nagarro.training.assignment4.Constants.Constants;
 import com.nagarro.training.assignment4.DAO.ImageHandler;
+import com.nagarro.training.assignment4.customException.NewCustomException;
+import com.nagarro.training.assignment4.services.UserHandler;
 
 /**
  * Servlet implementation class DeleteImage
@@ -53,7 +55,8 @@ public class DeleteImage extends HttpServlet {
 			Integer imageId = Integer.parseInt(request.getParameter("id"));
 
 			Integer deleted = new ImageHandler().removeimagefromDB(imageId);
-
+			Integer userId = (Integer)request.getSession().getAttribute(Constants.SESSION_USER_ID);
+			new UserHandler().updateTotalImageSize(userId, -1 , imageId);
 			if (deleted == 1) {
 				request.setAttribute(Constants.IMAGE_REPOSITORY_MESSAGES,
 						Constants.IMAGE_DELETE_SUCCESS);
@@ -66,6 +69,9 @@ public class DeleteImage extends HttpServlet {
 			exception.printStackTrace();
 			request.setAttribute(Constants.IMAGE_REPOSITORY_MESSAGES,
 					Constants.UNEXPECTED_ERROR);
+		} catch (NewCustomException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			request.getRequestDispatcher("imageRepository.jsp").forward(request, response);
 		}

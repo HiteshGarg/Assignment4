@@ -1,4 +1,15 @@
 //function to display Popup
+//http://jsfiddle.net/bTNV5/
+
+
+//document.getElementById('upload_image').addEventListener('change', checkFile, false);
+//
+//function checkFileUploads(element) {
+//	alert("hello");
+//	element.value = "";
+//}
+
+var extensions = new Array("jpg", "jpeg", "png");
 function showPopUp(id) {
 	document.getElementById('abc').style.display = "block";
 	document.getElementById('hidden_id').value = id;
@@ -25,10 +36,9 @@ function validateInput() {
 }
 
 function validateFileExtension(file) {
-	var extensions = new Array("jpg", "jpeg", "png");
 	var flag = false;
 	var file_extension = file.substring(file.lastIndexOf('.') + 1);
-	for ( var i = 0; i < extensions.length; i++) {
+	for (var i = 0; i < extensions.length; i++) {
 		if (file_extension.toLowerCase() == extensions[i].toLowerCase()) {
 			flag = true;
 

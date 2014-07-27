@@ -23,4 +23,11 @@ public class NewCustomException extends Exception {
 	public String printMessage() {
 		return message;
 	}
+	
+	public String getErrorMessage(){
+		return message;
+	}
+	public void setMessage(String message) {
+		this.message = message;
+	}
 }

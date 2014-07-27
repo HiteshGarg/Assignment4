@@ -3,8 +3,6 @@
  */
 package com.nagarro.training.assignment4.DAO;
 
-import java.io.PrintWriter;
-import java.util.Iterator;
 import java.util.List;
 
 import org.hibernate.HibernateException;
@@ -13,7 +11,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.nagarro.training.assignment4.Constants.Constants;
 import com.nagarro.training.assignment4.POJO.UserImage;
 import com.nagarro.training.assignment4.utilities.HibernateUtil;
 
@@ -49,6 +46,7 @@ public class ImageHandler {
 		return uploaded;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<UserImage> listUserImages(Integer userId){
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
@@ -95,18 +93,16 @@ public class ImageHandler {
 		return count;
 	}
 
-	public Integer updateImageInDB(Integer imageId, String name) {
+	public Boolean updateImageInDB(UserImage image) {
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
 		Transaction tx = null;
-		Integer count = 0;
+		Boolean success = false;
 		try {
 			session = factory.openSession();
 			tx = session.beginTransaction();
-			UserImage image = new UserImage();
-			image.setImageId(imageId);
-			image.setImageName(name);
 			session.update(image);
+			success = true;
 			tx.commit();
 			session.close();
 			
@@ -116,9 +112,10 @@ public class ImageHandler {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		return count;
+		return success;
 	}
 
+	@SuppressWarnings("unchecked")
 	public static UserImage getImageById(Integer imageId){
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;

@@ -2,7 +2,6 @@ package com.nagarro.training.assignment4.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.nagarro.training.assignment4.Constants.Constants;
-import com.nagarro.training.assignment4.DAO.UserValidator;
+import com.nagarro.training.assignment4.DAO.UserDAO;
 import com.nagarro.training.assignment4.customException.NewCustomException;
 
 /**
@@ -54,7 +53,7 @@ public class LoginValidator extends HttpServlet {
 		String pwd = request.getParameter("password");
 
 		try {
-			Integer userId = UserValidator.validateUser(uname, pwd);
+			Integer userId = UserDAO.validateUser(uname, pwd);
 			if (null != userId) {
 				out.println("Welcome Dude");
 				session.setAttribute(Constants.SESSION_USER_ID, userId); // Setting userId as a
