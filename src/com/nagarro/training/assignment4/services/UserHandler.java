@@ -33,7 +33,7 @@ public class UserHandler {
 			totalSize = totalSize - image.getImage().length;
 			}
 			user.setTotalSize(totalSize);
-			UserDAO.updateUser(user);
+			new UserDAO().updateUser(user);
 		} catch (NewCustomException exception) {
 			String message = exception.getErrorMessage()
 					+ "Error in Updating Total Image Size";

@@ -3,12 +3,13 @@
 
 
 //document.getElementById('upload_image').addEventListener('change', checkFile, false);
+var extensions = new Array("jpg", "jpeg", "png");
 
 function checkFileUploads(element) {
 	
 	var file = element.value;
 	if(validateFileExtension(file)){
-		
+		// Do Nothing
 	}
 	else{
 		alert("Please enter a Image");
@@ -16,7 +17,6 @@ function checkFileUploads(element) {
 	}
 }
 
-var extensions = new Array("jpg", "jpeg", "png");
 function showPopUp(id) {
 	document.getElementById('abc').style.display = "block";
 	document.getElementById('hidden_id').value = id;
@@ -53,4 +53,9 @@ function validateFileExtension(file) {
 		}
 	}
 	return flag;
+}
+
+function validateLoginForm(element) {
+	alert(element);
+	return false;
 }

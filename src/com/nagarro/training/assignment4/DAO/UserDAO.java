@@ -56,7 +56,7 @@ public class UserDAO {
 		return user;
 	}
 
-	public static void updateUser(UserDetails user) throws NewCustomException {
+	public void updateUser(UserDetails user) throws NewCustomException {
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
 		try {

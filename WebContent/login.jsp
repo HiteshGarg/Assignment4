@@ -9,7 +9,6 @@
 <link rel="stylesheet" type="text/css" href="css/login.css">
 </head>
 <body>
-
 	<div id="loginForm">
 		<p id="error">
 			<%
@@ -19,7 +18,7 @@
 				}
 			%>
 		</p>
-		<form action="LoginValidator" method="post">
+		<form action="LoginValidator" method="post" onsubmit="return validateLoginForm(this)">
 			<table>
 				<tr>
 					<td id="top">Login</td>
