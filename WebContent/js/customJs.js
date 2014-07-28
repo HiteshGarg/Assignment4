@@ -3,11 +3,18 @@
 
 
 //document.getElementById('upload_image').addEventListener('change', checkFile, false);
-//
-//function checkFileUploads(element) {
-//	alert("hello");
-//	element.value = "";
-//}
+
+function checkFileUploads(element) {
+	
+	var file = element.value;
+	if(validateFileExtension(file)){
+		
+	}
+	else{
+		alert("Please enter a Image");
+		element.value = null;
+	}
+}
 
 var extensions = new Array("jpg", "jpeg", "png");
 function showPopUp(id) {

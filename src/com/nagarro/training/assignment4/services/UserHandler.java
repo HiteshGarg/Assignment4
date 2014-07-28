@@ -15,11 +15,15 @@ import com.nagarro.training.assignment4.customException.NewCustomException;
  */
 public class UserHandler {
 
+	/*
+	 * "userId" Is the Id of the user Currently in the session .. "imageSize" Is
+	 * the size of the image uploaded in bytes (as new or updated image) .. "imageId" -> is
+	 * the Id of existing image in case of updation or deletion.
+	 */
 	public Boolean updateTotalImageSize(Integer userId, Integer imageSize, Integer imageId)
 			throws NewCustomException {
 		try {
 			UserDetails user = UserDAO.getUserById(userId);
-			Integer existingimageSize = 0;
 			long totalSize = user.getTotalSize();
 			if(imageSize> 0){
 				totalSize = totalSize + imageSize;

@@ -49,7 +49,7 @@
 				<a href="Logout">Logout</a>
 				<form action="ImageUpload" enctype="multipart/form-data"
 					method="post">
-					<input type="file" name="image" id="upload_image" required> <input
+					<input type="file" name="image" id="upload_image" onchange="checkFileUploads(this)" required> <input
 						type="submit" value="Upload"> <input type="reset"
 						value="clear">
 				</form>
