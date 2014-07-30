@@ -59,17 +59,10 @@
 			</div>
 
 			<div id="error">
-				<%
-					//Message from ImageUpload.java.... Prints about successful image upload or not...
-
-					if (null != request
-							.getAttribute(Constants.IMAGE_REPOSITORY_MESSAGES)) {
-						out.println(request
-								.getAttribute(Constants.IMAGE_REPOSITORY_MESSAGES));
-
-						session.removeAttribute(Constants.IMAGE_REPOSITORY_MESSAGES);
-					}
-				%>
+			<!-- Message from ImageUpload.java.... Prints about successful image upload or not... -->
+				<c:if test="${not empty requestScope.repositoryMessages }">
+					<c:out value="${requestScope.repositoryMessages }"></c:out> 
+				</c:if>
 			</div>
 			<div id="image_display">
 
@@ -91,26 +84,25 @@
 						<tr>
 							<td>${count+1}</td>
 							<td>${images.imageName }</td>
-							<td>
-							<c:out value="${requestScope.imageLength[count]}"></c:out>
+							<td><c:out value="${requestScope.imageLength[count]}"></c:out>
 							</td>
 							<td><img src="${requestScope.base64List[count]}"
 								width="100px" height="auto"></td>
 
-							<td><a onclick="javascript: showPopUp(${images.imageId})"> <img
-									width="25px" height="auto" alt="Edit Image"
+							<td><a onclick="javascript: showPopUp(${images.imageId})">
+									<img width="25px" height="auto" alt="Edit Image"
 									src="images/edit.jpg">
-							</a> <a href="DeleteImage?id=${images.imageId}"> <img width="25px"
-									height="auto" alt="Edit Image" src="images/delete.jpg"
+							</a> <a href="DeleteImage?id=${images.imageId}"> <img
+									width="25px" height="auto" alt="Edit Image"
+									src="images/delete.jpg"
 									onclick="return confirm('Are you sure?')"></a></td>
 						</tr>
-						<c:set var="size" value="${size + requestScope.imageLength[count]}"></c:set>
+						<c:set var="size"
+							value="${size + requestScope.imageLength[count]}"></c:set>
 						<c:set var="count" value="${count+1}"></c:set>
-						
+
 					</c:forEach>
-					<p>
-					Total Size -> ${size/1024} KB // ${size/1024/1024} MB
-					</p>
+					<p>Total Size -> ${size/1024} KB // ${size/1024/1024} MB</p>
 				</table>
 			</div>
 		</div>

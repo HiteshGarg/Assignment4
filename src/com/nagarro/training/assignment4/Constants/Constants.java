@@ -9,7 +9,7 @@ public class Constants {
 
 	public static final String SESSION_USER_ID = "userId";
 	public static final String SESSION_USER_IMAGE_SIZE = "totalImageSize";
-	public static final String IMAGE_REPOSITORY_MESSAGES = "imageUploadStatus";
+	public static final String IMAGE_REPOSITORY_MESSAGES = "repositoryMessages";
 	public static final String IMAGE_UPLOAD_SUCCESS = "Image Uploaded Successfully";
 	public static final String IMAGE_UPLOAD_FAIL = "Image upload unsuccessful.... Please try again";
 

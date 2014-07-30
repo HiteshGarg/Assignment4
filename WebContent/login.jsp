@@ -1,6 +1,7 @@
 <%@page import="java.util.Enumeration"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,14 +12,12 @@
 <body>
 	<div id="loginForm">
 		<p id="error">
-			<%
-				if (null != request.getAttribute("invalidLogin")) {
-					out.println(request.getAttribute("invalidLogin"));
-
-				}
-			%>
+			<c:if test="${not empty requestScope.invalidLogin }">
+				<c:out value="${requestScope.invalidLogin }"></c:out>
+			</c:if>
 		</p>
-		<form action="LoginValidator" method="post" onsubmit="return validateLoginForm(this)">
+		<form action="LoginValidator" method="post"
+			onsubmit="return validateLoginForm(this)">
 			<table>
 				<tr>
 					<td id="top">Login</td>
