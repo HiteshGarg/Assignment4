@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nagarro.training.assignment4.POJO;
+package com.nagarro.training.assignment4.pojo;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,33 +13,34 @@ import javax.persistence.ManyToOne;
 
 /**
  * @author hiteshgarg
- *
+ * 
  */
 @Entity
-
 public class UserImage {
-	
+
 	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int imageId;
-	
+
 	private String imageName;
-	
+
 	@Lob
 	private byte[] image;
-	
-	@ManyToOne(targetEntity=UserDetails.class)
-	@JoinColumn(name="userId", referencedColumnName="id")
+
+
+	@ManyToOne(targetEntity = UserDetails.class)
+	@JoinColumn(name = "userId", referencedColumnName = "id")
 	private UserDetails userId;
 
-	public UserImage() {}
-	
+	public UserImage() {
+	}
+
 	public UserImage(String name, byte[] image, UserDetails id) {
 		imageName = name;
 		this.image = image;
 		userId = id;
 	}
-	
+
 	/**
 	 * @return the imageId
 	 */
@@ -48,7 +49,8 @@ public class UserImage {
 	}
 
 	/**
-	 * @param imageId the imageId to set
+	 * @param imageId
+	 *            the imageId to set
 	 */
 	public void setImageId(int imageId) {
 		this.imageId = imageId;
@@ -62,7 +64,8 @@ public class UserImage {
 	}
 
 	/**
-	 * @param imageName the imageName to set
+	 * @param imageName
+	 *            the imageName to set
 	 */
 	public void setImageName(String imageName) {
 		this.imageName = imageName;
@@ -76,7 +79,8 @@ public class UserImage {
 	}
 
 	/**
-	 * @param image the image to set
+	 * @param image
+	 *            the image to set
 	 */
 	public void setImage(byte[] image) {
 		this.image = image;
@@ -90,7 +94,8 @@ public class UserImage {
 	}
 
 	/**
-	 * @param userId the userId to set
+	 * @param userId
+	 *            the userId to set
 	 */
 	public void setUserId(UserDetails userId) {
 		this.userId = userId;

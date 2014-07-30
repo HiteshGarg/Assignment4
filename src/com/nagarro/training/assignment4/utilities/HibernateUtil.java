@@ -10,8 +10,8 @@ import org.hibernate.boot.registry.internal.StandardServiceRegistryImpl;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 
-import com.nagarro.training.assignment4.POJO.UserDetails;
-import com.nagarro.training.assignment4.POJO.UserImage;
+import com.nagarro.training.assignment4.pojo.UserDetails;
+import com.nagarro.training.assignment4.pojo.UserImage;
 
 
 /**

@@ -1,10 +1,6 @@
 package com.nagarro.training.assignment4.servlets;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -13,17 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.nagarro.training.assignment4.Constants.Constants;
-import com.nagarro.training.assignment4.DAO.ImageHandler;
-import com.nagarro.training.assignment4.POJO.UserDetails;
-import com.nagarro.training.assignment4.POJO.UserImage;
 import com.nagarro.training.assignment4.customException.NewCustomException;
-import com.nagarro.training.assignment4.services.FormDataHandler;
-import com.nagarro.training.assignment4.services.ImageServices;
-import com.nagarro.training.assignment4.services.UserHandler;
+import com.nagarro.training.assignment4.services.ImageUploadService;
 
 /**
  * Servlet implementation class ImageUpload
@@ -55,40 +45,8 @@ public class ImageUpload extends HttpServlet {
 					response);
 		}
 		try {
-			Map<String, FileItem> formData = FormDataHandler
-					.getFilesList(request);
-			Integer userid = (Integer) request.getSession().getAttribute(
-					Constants.SESSION_USER_ID);
-
-			for (Map.Entry<String, FileItem> entry : formData.entrySet()) {
-				if (!entry.getValue().isFormField()) {
-					Boolean validate = ImageServices.validateTotalImageSize(
-							userid, entry.getValue().getSize(), -1);
-					if (!validate) {
-						throw new NewCustomException(
-								Constants.TOTAL_IMAGE_SIZE_EXCEEDS);
-					}
-				}
-			}
-			List<UserImage> imageList = new ArrayList<>();
-
-			InputStream inputStream = null;
-			FileItem image = formData.get("image");
-			inputStream = image.getInputStream();
-			byte[] imageDataInBytes = new byte[(int) image.getSize()];
-			inputStream.read(imageDataInBytes);
-			inputStream.close();
-
-			UserDetails user = new UserDetails();
-			user.setId((Integer) request.getSession().getAttribute(
-					Constants.SESSION_USER_ID));
-			UserImage userImg = new UserImage(image.getName(),
-					imageDataInBytes, user);
-
-			imageList.add(userImg);
-			Boolean uploaded = new ImageHandler().uploadImageList(imageList);
-			new UserHandler().updateTotalImageSize(userid,
-					imageDataInBytes.length, -1);
+	
+			Boolean uploaded = new ImageUploadService().uploadUserImage(request);
 
 			if (uploaded) {
 				request.setAttribute(Constants.IMAGE_REPOSITORY_MESSAGES,
@@ -101,8 +59,7 @@ public class ImageUpload extends HttpServlet {
 			request.setAttribute(Constants.IMAGE_REPOSITORY_MESSAGES,
 					exception.getErrorMessage());
 		} finally {
-			request.getRequestDispatcher("imageRepository.jsp").forward(
-					request, response);
+			request.getRequestDispatcher(Constants.IMAGE_RETRIEVER).forward(request, response);
 		}
 	}
 

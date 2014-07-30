@@ -1,7 +1,6 @@
 package com.nagarro.training.assignment4.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,11 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.nagarro.training.assignment4.Constants.Constants;
-import com.nagarro.training.assignment4.DAO.UserDAO;
 import com.nagarro.training.assignment4.customException.NewCustomException;
+import com.nagarro.training.assignment4.services.LoginService;
 
 /**
  * Servlet implementation class LoginValidator
@@ -37,31 +35,11 @@ public class LoginValidator extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		PrintWriter out = response.getWriter();
-		HttpSession session = request.getSession(false);
 		RequestDispatcher dispatcher;
-		//
-		// if (null == session.getAttribute("username")) {
-		// request.setAttribute("invalidLogin",
-		// "Please Login To access other parts...");
-		// dispatcher = request
-		// .getRequestDispatcher("login.jsp");
-		// dispatcher.forward(request, response);
-		// }
-
-		String uname = request.getParameter("username");
-		String pwd = request.getParameter("password");
-
+		
 		try {
-			Integer userId = UserDAO.validateUser(uname, pwd);
-			if (null != userId) {
-				out.println("Welcome Dude");
-				session.setAttribute(Constants.SESSION_USER_ID, userId); // Setting userId as a
-														// session variable on
-														// Successful Login
-				out.println(session.getAttribute(Constants.SESSION_USER_ID));
-
-				response.sendRedirect("imageRepository.jsp");
+			if(new LoginService().validateLogin(request)){
+				request.getRequestDispatcher(Constants.IMAGE_RETRIEVER).forward(request, response);
 			} else {
 				request.setAttribute("invalidLogin",
 						"Login Credentials are wrong ... Please try again..");

@@ -17,7 +17,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.nagarro.training.assignment4.Constants.Constants;
 import com.nagarro.training.assignment4.customException.NewCustomException;
 
-public class FormDataHandler {
+public class FormDataService {
 
 	public static Map<String, FileItem> getFilesList(HttpServletRequest request)
 			throws NewCustomException {
@@ -41,15 +41,6 @@ public class FormDataHandler {
 			Iterator<FileItem> iter = ((List<FileItem>) files).iterator();
 			while (iter != null && iter.hasNext()) {
 				FileItem fileItem = (FileItem) iter.next();
-				if (!fileItem.isFormField()) {
-//					System.out.println(fileItem.getSize());
-//					System.out.println(Integer.parseInt(request.getParameter("id")));
-//					ImageServices.validateToatlImageSize(
-//							(Integer) request.getSession().getAttribute(
-//									Constants.SESSION_USER_ID),
-//							fileItem.getSize(),
-//							Integer.parseInt(request.getParameter("id")));
-				}
 				formData.put(fileItem.getFieldName(), fileItem);
 			}
 		}

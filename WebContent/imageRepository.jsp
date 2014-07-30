@@ -1,12 +1,12 @@
+<%@page import="com.nagarro.training.assignment4.dao.impl.ImageDaoImpl"%>
 <%@page import="org.apache.catalina.util.Base64"%>
 <%@page import="java.util.Iterator"%>
-<%@page import="com.nagarro.training.assignment4.DAO.ImageHandler"%>
 <%@page import="com.nagarro.training.assignment4.Constants.Constants"%>
-<%@page import="com.nagarro.training.assignment4.POJO.UserImage"%>
+<%@page import="com.nagarro.training.assignment4.pojo.UserImage"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -50,7 +50,8 @@
 				<a href="Logout">Logout</a>
 				<form action="ImageUpload" enctype="multipart/form-data"
 					method="post">
-					<input type="file" name="image" id="upload_image" onchange="checkFileUploads(this)" required> <input
+					<input type="file" name="image" id="upload_image"
+						onchange="checkFileUploads(this)" required> <input
 						type="submit" value="Upload"> <input type="reset"
 						value="clear">
 				</form>
@@ -72,6 +73,7 @@
 			</div>
 			<div id="image_display">
 
+
 				<table>
 					<tr>
 						<th>S. No.</th>
@@ -80,56 +82,38 @@
 						<th>Preview</th>
 						<th>Actions</th>
 					</tr>
-					<%
-						List<UserImage> imageList = ImageHandler
-								.listUserImages((Integer) session
-										.getAttribute(Constants.SESSION_USER_ID));
-						Iterator<UserImage> iter = imageList.iterator();
-						Integer size = 0;
-						Integer count = 0;
-						while (iter.hasNext()) {
-							count++;
-							UserImage image = (UserImage) iter.next();
-							size = size + image.getImage().length;
 
-							String url = "data:image/png;base64,"
-									+ Base64.encode(image.getImage());
-					%>
-					<tr>
-						<td>
-							<c:out value="${count}"/>
-						</td>
-						<td>
-							<c:out value="${image.getImageName()}"></c:out>
-						</td>
-						<td>
-							<%
-								out.print(image.getImage().length / 1024 + " KB");
-							%>
-						</td>
-						<td><img alt="<%out.print(image.getImageName());%>"
-							src=<%out.print(url);%> width="100px" height="auto"></td>
 
-						<td><a
-							onclick="javascript: showPopUp(<%out.print(image.getImageId());%>)">
-								<img width="25px" height="auto" alt="Edit Image"
-								src="images/edit.jpg">
-						</a> <a href="DeleteImage?id=<%=image.getImageId()%>"> <img
-								width="25px" height="auto" alt="Edit Image"
-								src="images/delete.jpg"
-								onclick="return confirm('Are you sure?')"></a></td>
-					</tr>
-					<%
-						}
+					<c:set var="size" value="${0}" scope="page"></c:set>
+					<c:set var="count" value="${0}" scope="page"></c:set>
 
-						out.println("Total size : " + (size ) + " B => "
-								 + (size / 1024) + " KB => "
-								+ (size / (1024 * 1024)) + " MB");
-					%>
+					<c:forEach var="images" items="${requestScope.imageList }">
+						<tr>
+							<td>${count+1}</td>
+							<td>${images.imageName }</td>
+							<td>
+							<c:out value="${requestScope.imageLength[count]}"></c:out>
+							</td>
+							<td><img src="${requestScope.base64List[count]}"
+								width="100px" height="auto"></td>
+
+							<td><a onclick="javascript: showPopUp(${images.imageId})"> <img
+									width="25px" height="auto" alt="Edit Image"
+									src="images/edit.jpg">
+							</a> <a href="DeleteImage?id=${images.imageId}"> <img width="25px"
+									height="auto" alt="Edit Image" src="images/delete.jpg"
+									onclick="return confirm('Are you sure?')"></a></td>
+						</tr>
+						<c:set var="size" value="${size + requestScope.imageLength[count]}"></c:set>
+						<c:set var="count" value="${count+1}"></c:set>
+						
+					</c:forEach>
+					<p>
+					Total Size -> ${size/1024} KB // ${size/1024/1024} MB
+					</p>
 				</table>
 			</div>
 		</div>
-	</div>
 	</div>
 </body>
 </html>

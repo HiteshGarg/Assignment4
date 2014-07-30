@@ -13,7 +13,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.nagarro.training.assignment4.Constants.Constants;
 import com.nagarro.training.assignment4.customException.NewCustomException;
-import com.nagarro.training.assignment4.services.ImageServices;
+import com.nagarro.training.assignment4.services.ImageUpdateService;
 
 /**
  * Servlet implementation class UpdateImage
@@ -60,7 +60,7 @@ public class UpdateImage extends HttpServlet {
 		}
 		try {
 			
-			Boolean updated = new ImageServices().updateUserImage(request);
+			Boolean updated = new ImageUpdateService().updateUserImage(request);
 			if (updated) {
 				request.setAttribute(Constants.IMAGE_REPOSITORY_MESSAGES,
 						Constants.IMAGE_UPDATE_SUCCESS);
@@ -74,8 +74,7 @@ public class UpdateImage extends HttpServlet {
 					exception.getErrorMessage());
 		}
 		finally {
-			request.getRequestDispatcher("imageRepository.jsp").forward(
-					request, response);
+			request.getRequestDispatcher(Constants.IMAGE_RETRIEVER).forward(request, response);
 			
 		}
 		return;

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nagarro.training.assignment4.POJO;
+package com.nagarro.training.assignment4.pojo;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -8,6 +8,7 @@ package com.nagarro.training.assignment4.Constants;
 public class Constants {
 
 	public static final String SESSION_USER_ID = "userId";
+	public static final String SESSION_USER_IMAGE_SIZE = "totalImageSize";
 	public static final String IMAGE_REPOSITORY_MESSAGES = "imageUploadStatus";
 	public static final String IMAGE_UPLOAD_SUCCESS = "Image Uploaded Successfully";
 	public static final String IMAGE_UPLOAD_FAIL = "Image upload unsuccessful.... Please try again";
@@ -24,4 +25,6 @@ public class Constants {
 	public static final long TOTAL_USER_UPLOAD_SIZE = 1024 * 1024 * 10;// MB
 	public static final String TOTAL_IMAGE_SIZE_EXCEEDS = "Total Image Size has exceeded 10 MB.. "
 			+ "Plase try again with smaller Size";
+	public static final String ERROR_CONTACTING_SERVER = "Error in contacting Server ... Please try again after sometime";
+	public static final String IMAGE_RETRIEVER = "ImageRetrieval";
 }

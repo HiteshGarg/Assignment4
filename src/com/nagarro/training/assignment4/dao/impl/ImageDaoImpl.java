@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.nagarro.training.assignment4.DAO;
+package com.nagarro.training.assignment4.dao.impl;
 
 import java.util.List;
 
@@ -11,16 +11,24 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import com.nagarro.training.assignment4.POJO.UserImage;
+import com.nagarro.training.assignment4.Constants.Constants;
+import com.nagarro.training.assignment4.customException.NewCustomException;
+import com.nagarro.training.assignment4.pojo.UserImage;
 import com.nagarro.training.assignment4.utilities.HibernateUtil;
 
 /**
  * @author hiteshgarg
  * 
  */
-public class ImageHandler {
+public class ImageDaoImpl {
 
-	public Boolean uploadImageList(List<UserImage> imageList) {
+	/**
+	 * 
+	 * @param imageList
+	 * @return
+	 * @throws NewCustomException
+	 */
+	public Boolean uploadUserImage(UserImage image) throws NewCustomException {
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
 		Transaction tx = null;
@@ -28,30 +36,30 @@ public class ImageHandler {
 		try {
 			session = factory.openSession();
 			tx = session.beginTransaction();
-			
-			for(UserImage userImage : imageList){
-				session.saveOrUpdate(userImage);
-			}
-			
+			session.save(image);
 			tx.commit();
 			session.close();
 			uploaded = true;
-			
+
 		} catch (HibernateException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
+			throw new NewCustomException(Constants.ERROR_CONTACTING_SERVER);
 		}
 		return uploaded;
 	}
-	
+
+	/**
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws NewCustomException
+	 */
 	@SuppressWarnings("unchecked")
-	public static List<UserImage> listUserImages(Integer userId){
+	public static List<UserImage> listUserImages(Integer userId)
+			throws NewCustomException {
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
 		Transaction tx = null;
-		List<UserImage> imageList= null;
+		List<UserImage> imageList = null;
 		try {
 			session = factory.openSession();
 			tx = session.beginTransaction();
@@ -62,15 +70,18 @@ public class ImageHandler {
 			tx.commit();
 			session.close();
 		} catch (HibernateException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
+			throw new NewCustomException(Constants.ERROR_CONTACTING_SERVER);
 		}
 		return imageList;
 	}
 
-	public Integer removeimagefromDB(Integer imageId) {
+	/**
+	 * 
+	 * @param imageId
+	 * @return
+	 * @throws NewCustomException
+	 */
+	public Integer removeimagefromDB(Integer imageId) throws NewCustomException {
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
 		Transaction tx = null;
@@ -78,22 +89,26 @@ public class ImageHandler {
 		try {
 			session = factory.openSession();
 			tx = session.beginTransaction();
-			Query query = session.createQuery("Delete from UserImage where id = :id");
+			Query query = session
+					.createQuery("Delete from UserImage where id = :id");
 			query.setInteger("id", imageId);
 			count = query.executeUpdate();
 			tx.commit();
 			session.close();
-			
+
 		} catch (HibernateException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
+			throw new NewCustomException(Constants.ERROR_CONTACTING_SERVER);
 		}
 		return count;
 	}
 
-	public Boolean updateImageInDB(UserImage image) {
+	/**
+	 * 
+	 * @param image
+	 * @return
+	 * @throws NewCustomException 
+	 */
+	public Boolean updateImageInDB(UserImage image) throws NewCustomException {
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
 		Transaction tx = null;
@@ -105,22 +120,25 @@ public class ImageHandler {
 			success = true;
 			tx.commit();
 			session.close();
-			
+
 		} catch (HibernateException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
+			throw new NewCustomException(Constants.ERROR_CONTACTING_SERVER);
 		}
 		return success;
 	}
 
+	/**
+	 * 
+	 * @param imageId
+	 * @return
+	 * @throws NewCustomException 
+	 */
 	@SuppressWarnings("unchecked")
-	public static UserImage getImageById(Integer imageId){
+	public static UserImage getImageById(Integer imageId) throws NewCustomException {
 		SessionFactory factory = HibernateUtil.createSessionFactory();
 		Session session = null;
 		Transaction tx = null;
-		UserImage image= null;
+		UserImage image = null;
 		try {
 			session = factory.openSession();
 			tx = session.beginTransaction();
@@ -128,17 +146,14 @@ public class ImageHandler {
 			Query query = session.createQuery(hql);
 			query.setInteger("Id", imageId);
 			List<UserImage> imageList = query.list();
-			if(imageList.size()!=0){
+			if (imageList.size() != 0) {
 				image = imageList.get(0);
 			}
 			tx.commit();
 			session.close();
 		} catch (HibernateException e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+			throw new NewCustomException(Constants.ERROR_CONTACTING_SERVER);
+		} 
 		return image;
 	}
 
