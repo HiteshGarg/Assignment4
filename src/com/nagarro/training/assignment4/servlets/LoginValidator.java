@@ -40,14 +40,19 @@ public class LoginValidator extends HttpServlet {
 		try {
 			if(new LoginService().validateLogin(request)){
 				request.getRequestDispatcher(Constants.IMAGE_RETRIEVER).forward(request, response);
+				return;
 			} else {
 				request.setAttribute("invalidLogin",
 						"Login Credentials are wrong ... Please try again..");
-				dispatcher = request.getRequestDispatcher("login.jsp");
-				dispatcher.forward(request, response);
 			}
 		} catch (NewCustomException exception) {
-			exception.printMessage();
+			request.setAttribute("invalidLogin",
+					exception.getErrorMessage());
+			
+		}finally{
+			dispatcher = request.getRequestDispatcher("login.jsp");
+			dispatcher.forward(request, response);
+			
 		}
 	}
 

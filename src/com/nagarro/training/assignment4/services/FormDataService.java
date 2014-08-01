@@ -19,6 +19,14 @@ import com.nagarro.training.assignment4.customException.NewCustomException;
 
 public class FormDataService {
 
+	/**
+	 * Parse the request object and returns a map of filename and FileItem of
+	 * all the FileItems in the request object
+	 * 
+	 * @param request
+	 * @return
+	 * @throws NewCustomException
+	 */
 	public static Map<String, FileItem> getFilesList(HttpServletRequest request)
 			throws NewCustomException {
 		FileItemFactory fileFactory = new DiskFileItemFactory();

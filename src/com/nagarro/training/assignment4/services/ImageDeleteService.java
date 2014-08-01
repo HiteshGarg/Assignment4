@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.nagarro.training.assignment4.Constants.Constants;
 import com.nagarro.training.assignment4.customException.NewCustomException;
-import com.nagarro.training.assignment4.dao.impl.ImageDaoImpl;
+import com.nagarro.training.assignment4.dao.ImageDao;
 
 /**
  * @author hiteshgarg
@@ -15,6 +15,12 @@ import com.nagarro.training.assignment4.dao.impl.ImageDaoImpl;
  */
 public class ImageDeleteService {
 
+	/**
+	 * Deletes User Image using its Id
+	 * @param request
+	 * @return
+	 * @throws NewCustomException
+	 */
 	public Boolean imageDelete(HttpServletRequest request)
 			throws NewCustomException {
 		Boolean deleted = false;
@@ -23,7 +29,7 @@ public class ImageDeleteService {
 			Integer userId = (Integer) request.getSession().getAttribute(
 					Constants.SESSION_USER_ID);
 			new UserService().updateTotalImageSize(userId, -1, imageId);
-			new ImageDaoImpl().removeimagefromDB(imageId);
+			new ImageDao().removeimagefromDB(imageId);
 			deleted = true;
 		} catch (NewCustomException exception) {
 			throw exception;

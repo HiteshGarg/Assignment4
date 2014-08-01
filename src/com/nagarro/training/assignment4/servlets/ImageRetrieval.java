@@ -14,7 +14,7 @@ import org.apache.catalina.util.Base64;
 
 import com.nagarro.training.assignment4.Constants.Constants;
 import com.nagarro.training.assignment4.customException.NewCustomException;
-import com.nagarro.training.assignment4.dao.impl.ImageDaoImpl;
+import com.nagarro.training.assignment4.dao.ImageDao;
 import com.nagarro.training.assignment4.pojo.UserImage;
 
 /**
@@ -44,7 +44,7 @@ public class ImageRetrieval extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
-			List<UserImage> imageList = ImageDaoImpl
+			List<UserImage> imageList = ImageDao
 					.listUserImages((Integer) request.getSession().getAttribute(Constants.SESSION_USER_ID));
 			List<String> base64url = new ArrayList<>();
 			List<Integer> size = new ArrayList<>();
@@ -53,8 +53,7 @@ public class ImageRetrieval extends HttpServlet {
 				base64url.add(url);
 				size.add(image.getImage().length);
 			}
-			System.out.println(base64url.size());
-			System.out.println(imageList.size());
+
 			request.setAttribute("imageList", imageList);
 			request.setAttribute("base64List", base64url);
 			request.setAttribute("imageLength", size);
@@ -62,7 +61,6 @@ public class ImageRetrieval extends HttpServlet {
 		} catch (NewCustomException exception) {
 			request.setAttribute(Constants.IMAGE_REPOSITORY_MESSAGES,
 					exception.getErrorMessage());
-			System.out.println("Error aa gyi");
 		}
 		finally{
 			request.getRequestDispatcher("imageRepository.jsp").forward(request, response);

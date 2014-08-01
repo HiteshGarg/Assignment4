@@ -9,12 +9,12 @@ import org.apache.tomcat.util.http.fileupload.FileItem;
 
 import com.nagarro.training.assignment4.Constants.Constants;
 import com.nagarro.training.assignment4.customException.NewCustomException;
-import com.nagarro.training.assignment4.dao.impl.ImageDaoImpl;
+import com.nagarro.training.assignment4.dao.ImageDao;
 import com.nagarro.training.assignment4.pojo.UserImage;
 
 public class ImageUpdateService {
 	/**
-	 * 
+	 * updates the userImage or name or both
 	 * @param request
 	 * @return
 	 * @throws NewCustomException
@@ -32,7 +32,7 @@ public class ImageUpdateService {
 			
 			new ImageService().validateFormData(userid, formData);
 
-			UserImage image = ImageDaoImpl.getImageById(imageId);
+			UserImage image = ImageDao.getImageById(imageId);
 
 			String name = formData.get("name").getString();
 			if (name.length() > 0) {
@@ -44,20 +44,16 @@ public class ImageUpdateService {
 			if (imageName != "") {
 
 				FileItem fileItem = formData.get("update_image");
-
 				imageByteArray = fileItem.get();
-
 				image.setImage(imageByteArray);
-
-				System.out.println("updating........");
+				
 				new UserService().updateTotalImageSize(userid,
 						imageByteArray.length, imageId);
 			}
-			updated = new ImageDaoImpl().updateImageInDB(image);
+			updated = new ImageDao().updateImageInDB(image);
 		} catch (NewCustomException exception) {
 			throw exception;
 		}
-		
 		return updated;
 	}
 

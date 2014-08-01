@@ -1,4 +1,4 @@
-<%@page import="com.nagarro.training.assignment4.dao.impl.ImageDaoImpl"%>
+<%@page import="com.nagarro.training.assignment4.dao.ImageDao"%>
 <%@page import="org.apache.catalina.util.Base64"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="com.nagarro.training.assignment4.Constants.Constants"%>
