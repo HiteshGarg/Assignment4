@@ -21,7 +21,11 @@ import com.nagarro.training.assignment4.services.ImageUploadService;
 @WebServlet(description = "Uploads image provided by the user", urlPatterns = { "/ImageUpload" })
 @MultipartConfig(maxFileSize = 1024 * 1024)
 public class ImageUpload extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -6226550430676716902L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

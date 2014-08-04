@@ -12,9 +12,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(description = "Invalidates the Session", urlPatterns = { "/Logout" })
 public class Logout extends HttpServlet {
-	private static final long serialVersionUID = 1L;
        
     /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -1109564168505575140L;
+
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public Logout() {

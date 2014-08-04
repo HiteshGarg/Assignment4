@@ -18,7 +18,11 @@ import com.nagarro.training.assignment4.services.LoginService;
  */
 @WebServlet(description = "Validates the login credentials entered by the user by validating them against already stored values in database", urlPatterns = { "/LoginValidator" })
 public class LoginValidator extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -69400862935284156L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

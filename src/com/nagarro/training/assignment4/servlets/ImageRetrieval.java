@@ -22,9 +22,13 @@ import com.nagarro.training.assignment4.pojo.UserImage;
  */
 @WebServlet("/ImageRetrieval")
 public class ImageRetrieval extends HttpServlet {
-	private static final long serialVersionUID = 1L;
        
     /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 2671699181733165086L;
+
+	/**
      * @see HttpServlet#HttpServlet()
      */
     public ImageRetrieval() {

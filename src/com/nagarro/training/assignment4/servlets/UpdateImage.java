@@ -21,7 +21,11 @@ import com.nagarro.training.assignment4.services.ImageUpdateService;
 @WebServlet("/UpdateImage")
 @MultipartConfig
 public class UpdateImage extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 7571326408180590282L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

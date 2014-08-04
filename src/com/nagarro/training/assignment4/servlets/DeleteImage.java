@@ -17,7 +17,11 @@ import com.nagarro.training.assignment4.services.ImageDeleteService;
  */
 @WebServlet("/DeleteImage")
 public class DeleteImage extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 3261634470844386362L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()

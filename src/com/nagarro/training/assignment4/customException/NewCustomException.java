@@ -25,14 +25,18 @@ public class NewCustomException extends Exception {
 		this.message = message;
 	}
 	
+	
 	/**
-	 * 
+	 * return error message
 	 * @return
 	 */
-	
 	public String getErrorMessage(){
 		return message;
 	}
+	/**
+	 * st error message
+	 * @param message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
